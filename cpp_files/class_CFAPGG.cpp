@@ -9,8 +9,9 @@ void FAPGG::build_specials(const double para){
 	P = para;
 }
 
-FAPGG::FAPGG(const double rate,const double para){
+FAPGG::FAPGG(const double rate,const double para,const double pr){
 	r = rate;
+	Pr = pr;
 
 	for(int i = 0; i < LL; i++){
 		Strategy[i] = rand() % 2;
@@ -25,8 +26,17 @@ FAPGG::FAPGG(const double rate,const double para){
 		Neighbour[i][2] = (i + 1) % LL;
 		Neighbour[i][3] = (i - 1 + LL) % LL;
 	}
+
+	int punisherNum = int (LL * pr);
+	int numtmp[LL];
+	for(int i = 0; i < LL; i++)
+		numtmp[i] = i;
+	random_shuffle(numtmp,numtmp + LL) 
+	for(int i = 0; i < punisherNum;i++)
+		Punisher[numtmp[i]] = true;
+
 	build_specials(para);
-		
+	
 }
 
 double FAPGG::unit_game(const int cent){
@@ -100,8 +110,9 @@ int FAPGG::game(bool ptf){
 	if(ptf){
 		char path[100];
 		char dirt[100];
-		sprintf(dirt,"%s_%03d",dir_name, (int)(P*100));
-		sprintf(path,"%s/alp_%03d_r_%04d.dat", dirt, (int)(P*100), (int)(r*1000));
+		sprintf(dirt,"%s_%03d_%05d",dir_name, (int)(P*100),(int)(Beta*40000));
+		sprintf(path,"%s/alp_%03d_bet_%05d_r_%04d.dat", dirt, (int)(P*100),
+			(int)(Beta*40000), (int)(r*1000));
 		printf("Now file:%s\n",path);
 		mkdir(dirt,0700);
 		file = fopen(path,"w+");

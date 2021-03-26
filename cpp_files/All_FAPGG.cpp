@@ -5,6 +5,9 @@ int main(){
 	double alps[] ={
 		0,0.2,0.3,0.4,0.45,0.5,0.7,1.0
 	};
+	double beta[] ={
+		0.1,0.2
+	};
 	double rs[]= {
 		2.4,2.41,2.42,2.43,2.44,2.45,2.46,2.47,2.48,2.49,2.5,2.6,2.7,2.8,2.9,
 		3,3.1,3.15,3.17,3.2,3.25,3.3,3.35,3.4,3.5,3.6,3.74,3.747,3.748,3.75,3.76,3.78,
@@ -14,10 +17,13 @@ int main(){
 	};
 	int Anum = sizeof(alps) / sizeof(alps[0]);
 	int Rnum = sizeof(rs)/ sizeof(rs[0]);
-	for(int i = 0; i < Anum; i++){
-		for(int j = 0; j < Rnum; j++){
-			FAPGG gameOBj(rs[j],alps[i]);
-			gameOBj.game(true);
+	int Bnum = sizeof(beta)/sizeof(beta[0]);
+	for(int k = 0; k < Bnum; k++){
+		for(int i = 0; i < Anum; i++){
+			for(int j = 0; j < Rnum; j++){
+				FAPGG gameOBj(rs[j],alps[i],beta[k]);
+				gameOBj.game(true);
+			}
 		}
 	}
 	return 0;

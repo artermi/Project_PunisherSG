@@ -17,6 +17,7 @@ public:
 	long long rnd;
 	double r;
 	double P;
+	double Pr; //Punisher rate
 	char dir_name[100];
 
 	int Strategy[LL];
