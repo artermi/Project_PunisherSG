@@ -20,10 +20,10 @@ public:
 	long long curr[LL];
 
 	punPGG(const double pr,const double dr, const double rate, const double gp,
-	 const double t,const double beta); // rate of Pubisher, rate of Defactor, r,
+	 const double t,const double Beta); // rate of Pubisher, rate of Defactor, r,
 	double unit_game(const int cent);
 	double centre_game(const int cent, const int isX);
-	int game()
+	int game(bool ptf);
 };
 
 punPGG::punPGG(const double pr,const double dr, const double rate, const double gp,
@@ -47,7 +47,7 @@ punPGG::punPGG(const double pr,const double dr, const double rate, const double 
 		double rdnum = (double)rand()/(double)RAND_MAX;
 		if(rdnum < dr)
 			Strategy[i] = 0;
-		else if (rdnum < rp + dr)
+		else if (rdnum < pr + dr)
 			Strategy[i] = 2;
 		else
 			Strategy[i] = 1;
@@ -106,7 +106,7 @@ double punPGG::centre_game(const int cent, const int isX){
 
 	Next_MST_N[cent] = maxNes[rand() % max_amount];
 
-	return profit
+	return profit;
 }
 
 
@@ -116,8 +116,8 @@ int punPGG::game(bool ptf){
 		char path[100];
 		char dirt[100];
 		sprintf(dirt,"%s_r_%03d",dir_name, (int)(r*100));
-		sprintf(path,"%s/P(%2d)D(%2d)C(%2d).dat", dirt, (int)(Pr*10),
-			(int)(Dr * 0), (int)((1.0 - Pr - Dr)*10));
+		sprintf(path,"%s/D(%02d)C(%02d)P(%02d).dat", dirt,
+			(int)(Dr * 10), (int)((1.0 - Pr - Dr)*10), (int)(Pr*10));
 		printf("Now file:%s\n",path);
 		mkdir(dirt,0700);
 		file = fopen(path,"w+");
@@ -139,8 +139,11 @@ int punPGG::game(bool ptf){
 			printf("%d %.3f %3f %3f\n",i,rate[0],rate[1],rate[2]);
 
 		}
-		if(rate - 0.000001 <= 0 || rate + 0.000001 >= 1 || i == 10000)
+		if(i == 10000)
 			continue;
+		for(int j = 0; j <3; j++)
+			if(rate[j] + 0.000001 >= 1)
+				continue;
 		
 
 		for(int j = 0; j < LL; j++){
@@ -161,4 +164,14 @@ int punPGG::game(bool ptf){
 		fclose(file);
 
 	return 0;
+}
+
+int main(){
+	srand(time(NULL));
+	for(double i = 0; i <= 1.01; i += 0.1){
+		for(double j = 0; j < 1.01 - i; j+= 0.1){
+			punPGG punOBJ(i,j,3.0,0.7,0.2,0.7);
+			punOBJ.game(true);
+		}
+	}
 }
