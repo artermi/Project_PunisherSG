@@ -14,14 +14,14 @@ public:
 
 	int Strategy[LL]; // 0 for Defactor, 1 for Cooperator, 2 for Punisher
 	int Neighbour[LL][4];
-	int MST_N[LL];
-	int Next_MST_N[LL];
-	double probs[LL];
-	long long curr[LL];
+	//int MST_N[LL];
+	//int Next_MST_N[LL];
+	//double probs[LL];
+	//long long curr[LL];
 
 	punPGG(const double pr,const double dr, const double rate, const double gp,
 	 const double t,const double Beta); // rate of Pubisher, rate of Defactor, r,
-	double unit_game(const int cent);
+	double unit_game(const int cent,const int to);
 	double centre_game(const int cent, const int isX);
 	int game(bool ptf);
 };
@@ -34,7 +34,7 @@ punPGG::punPGG(const double pr,const double dr, const double rate, const double 
 	Gp = gp;
 	T = t;
 	beta = Beta;
-	strcpy(dir_name,"Other_fixed");
+	strcpy(dir_name,"Fixed");
 
 	for(int i = 0; i < LL; i++){
 		Neighbour[i][0] = (i - L + LL ) % LL; //North
@@ -52,12 +52,13 @@ punPGG::punPGG(const double pr,const double dr, const double rate, const double 
 		else
 			Strategy[i] = 1;
 
-		MST_N[i] = -1;
-		Next_MST_N[i] = -1; 
+		//MST_N[i] = -1;
+		//Next_MST_N[i] = -1; 
 	}
 }
 
-double punPGG::unit_game(const int cent){
+double punPGG::unit_game(const int cent,const int to){
+	/*
 	if(curr[cent] < rnd){
 		MST_N[cent] = Next_MST_N[cent];
 		curr[cent] = rnd;
@@ -68,28 +69,31 @@ double punPGG::unit_game(const int cent){
 			curr[person] = rnd;
 		}
 	}
+	*/
 	// Update each one's current round
 
 	double set_strat[3] = {0.0,0.0,0.0}; //0 Nd, 1 Nc, 2 Np; Only neighbours
+	set_strat[Strategy[cent]] += 1.0;
 	for(int i = 0; i < 4; i++)
 		set_strat[Strategy[Neighbour[cent][i]]] += 1.0; 
 
-	if(Strategy[cent] == 0)
+	if(Strategy[to] == 0)
 		return (r * set_strat[1]) / 5.0 - beta * set_strat[2] - T;
-	if(Strategy[cent] == 1)
-		return (r * set_strat[1] + 1.0) / 5.0 - 1.0 - T;
+	if(Strategy[to] == 1)
+		return (r * set_strat[1]) / 5.0 - 1.0 - T;
 
-	return (r * set_strat[1]) / 5.0 - Gp + (5.0 * T)/(set_strat[2] + 1.0) - T;
+	return (r * set_strat[1]) / 5.0 - Gp + (5.0 * T)/(set_strat[2]) - T;
 }
 
 double punPGG::centre_game(const int cent, const int isX){
-	double profit = unit_game(cent);
+	double profit = unit_game(cent,cent);
 	double earn[4] = {0.0,0.0,0.0,0.0};
 	for(int i = 0; i < 4; i++){
-		earn[i] = unit_game(Neighbour[cent][i]);
+		earn[i] = unit_game(Neighbour[cent][i],cent);
 		profit += earn[i];
 	}
 
+	/*
 	if(isX)
 		return profit;
 
@@ -105,6 +109,7 @@ double punPGG::centre_game(const int cent, const int isX){
 	}
 
 	Next_MST_N[cent] = maxNes[rand() % max_amount];
+	*/
 
 	return profit;
 }
@@ -115,9 +120,9 @@ int punPGG::game(bool ptf){
 	if(ptf){
 		char path[100];
 		char dirt[100];
-		sprintf(dirt,"%s_r_%03d",dir_name, (int)(r*100));
+		sprintf(dirt,"%s_r_%03d_t_%03d",dir_name, (int)(r*100), (int)(T*100));
 		sprintf(path,"%s/D(%02d)C(%02d)P(%02d).dat", dirt,
-			(int)(Dr * 10), (int)((1.0 - Pr - Dr)*10), (int)(Pr*10));
+			(int)(Dr * 10 + 0.5), (int)((1.0 - Pr - Dr)*10 + 0.5), (int)(Pr*10 + 0.5));
 		printf("Now file:%s\n",path);
 		mkdir(dirt,0700);
 		file = fopen(path,"w+");
