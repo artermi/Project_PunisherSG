@@ -121,9 +121,12 @@ int punPGG::game(bool ptf){
 		}
 		if(i == 10000)
 			continue;
+		bool STOP_RUN = false;
 		for(int j = 0; j <3; j++)
 			if(rate[j] + 0.000001 >= 1)
-				continue;
+				STOP_RUN = true;
+		if(STOP_RUN)
+			continue;
 		
 
 		for(int j = 0; j < LL; j++){
