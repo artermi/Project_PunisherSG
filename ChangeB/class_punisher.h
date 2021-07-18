@@ -9,7 +9,7 @@
 
 
 #define K 0.5
-#define L 800
+#define L 200
 #define LL (L * L)
 
 class punPGG{
