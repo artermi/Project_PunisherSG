@@ -4,6 +4,7 @@ using namespace std;
 punPGG::punPGG(const double pr,const double dr, const double rate, const double gp,
 	 const double t,const double Beta){
 	r = rate;
+
 	Pr = pr;
 	Dr = dr;
 	Gp = gp;
