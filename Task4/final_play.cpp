@@ -32,10 +32,10 @@ int wFinal::final_game(bool ptf){
 }
 
 int main(){
-		srand(time(NULL));
+	srand(time(NULL));
 
-	for(int k = 0; k < 51; k++){
-		wFinal punOBJ(0.333333,0.333333,3.0, 0.02 * double(k) ,0.1,0.7);
+	for(double k = 0.87; k < 0.875; k+= 0.01){
+		wFinal punOBJ(0.333333,0.333333,3.0, k ,0.2,0.2);
 		punOBJ.final_game(true);		
 	}
 

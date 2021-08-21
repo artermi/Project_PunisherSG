@@ -3,13 +3,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <algorithm>
-#include <string>
+#include <cstring>
 #include <sys/stat.h>
 #include <sys/types.h>
 
 
 #define K 0.5
-#define L 200
+#define L 400
 #define LL (L * L)
 
 class punPGG{
