@@ -4,8 +4,8 @@ using namespace std;
 int main(){
 	srand(time(NULL));
 
-	for(int k = 0; k < 51; k++){
-		punPGG punOBJ(0.333333,0.333333,3.0, 0.02 * double(k) ,0.1,0.7);
+	for(double k = .87; k  <.885; k+=0.1){
+		punPGG punOBJ(0.333333,0.333333,3.0, k,0.2,0.2);
 		punOBJ.game(true);		
 	}
 
