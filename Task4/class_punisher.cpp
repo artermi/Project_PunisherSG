@@ -103,6 +103,7 @@ int punPGG::game(bool ptf){
 
 	for(int i = 0; i < 35001; i++){
 
+
 		if(i % 500 == 0){
 			double total[3] = {0.0,0.0,0.0};
 			for(int j = 0; j < LL; j++)
