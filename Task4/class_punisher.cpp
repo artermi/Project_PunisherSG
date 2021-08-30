@@ -105,7 +105,7 @@ int punPGG::game(bool ptf){
 
 	double rate[3] = {0.0,0.0,0.0};
 
-	for(int i = 0; i < 10001; i++){
+	for(int i = 0; i < 50001; i++){
 		if(i % 500 == 0){
 			double total[3] = {0.0,0.0,0.0};
 			for(int j = 0; j < LL; j++)

@@ -34,7 +34,7 @@ int wFinal::final_game(bool ptf){
 int main(){
 	srand(time(NULL));
 
-	for(double k = 0.480; k < 0.5301; k+= 0.005){
+	for(double k = 0.50; k < 0.505; k+= 0.01){
 		wFinal punOBJ(0.333333,0.333333,3.0, k ,0,0.4);
 		punOBJ.final_game(true);		
 	}
