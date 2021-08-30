@@ -10,7 +10,7 @@ public:
 };
 
 int wFinal::final_game(bool ptf){
-	game(false);
+	game(true);
 	double sum_all = 0;
 	for(int i = 0; i < LL; i++)
 		sum_all += centre_game(i,0);
@@ -21,7 +21,7 @@ int wFinal::final_game(bool ptf){
 
 	if(ptf){
 		char path[100];
-		sprintf(path,"G(%03d).dat", (int)(Gp * 100) );
+		sprintf(path,"avg_G(%04d).dat", (int)(Gp * 1000 + 0.000001) );
 		printf("Now file:%s\n",path);
 		file = fopen(path,"w+");
 		fprintf(file, "%f",sum_all/ (double) LL);
@@ -34,8 +34,8 @@ int wFinal::final_game(bool ptf){
 int main(){
 	srand(time(NULL));
 
-	for(double k = 0.87; k < 0.875; k+= 0.01){
-		wFinal punOBJ(0.333333,0.333333,3.0, k ,0.2,0.2);
+	for(double k = 0.480; k < 0.5301; k+= 0.005){
+		wFinal punOBJ(0.333333,0.333333,3.0, k ,0,0.4);
 		punOBJ.final_game(true);		
 	}
 
