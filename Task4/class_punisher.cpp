@@ -9,6 +9,10 @@ punPGG::punPGG(const double pr,const double dr, const double rate, const double 
 	Gp = gp;
 	T = t;
 	beta = Beta;
+	Strategy = new int[LL];
+	Neighbour = new int*[LL];
+	for(int i = 0; i < LL; i++)
+		Neighbour[i] = new int[4];
 	strcpy(dir_name,"Fixed");
 
 	for(int i = 0; i < LL; i++){

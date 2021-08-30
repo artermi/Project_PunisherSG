@@ -23,8 +23,8 @@ public:
 	double Gp;
 	char dir_name[100];
 
-	int Strategy[LL]; // 0 for Defactor, 1 for Cooperator, 2 for Punisher
-	int Neighbour[LL][4];
+	int* Strategy; // 0 for Defactor, 1 for Cooperator, 2 for Punisher
+	int** Neighbour;
 	//int MST_N[LL];
 	//int Next_MST_N[LL];
 	//double probs[LL];
