@@ -23,7 +23,7 @@ int wFinal::final_game(bool ptf){
 		char path[100];
 		sprintf(path,"avg_G(%04d).dat", (int)(Gp * 1000 + 0.000001) );
 		printf("Now file:%s\n",path);
-		file = fopen(path,"w+");
+		file = fopen(path,"a+");
 		fprintf(file, "%f",sum_all/ (double) LL);
 		fclose(file);
 	}

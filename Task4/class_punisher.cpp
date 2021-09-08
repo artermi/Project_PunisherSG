@@ -100,12 +100,13 @@ int punPGG::game(bool ptf){
 		char path[100];
 		sprintf(path,"G(%04d).dat", (int)(Gp * 1000 + 0.000001) );
 		printf("Now file:%s\n",path);
-		file = fopen(path,"w+");
+		file = fopen(path,"a+");
 	}
 
 	double rate[3] = {0.0,0.0,0.0};
 
-	for(int i = 0; i < 50001; i++){
+	int Xrnd = 20001
+	for(int i = 0; i < Xrnd; i++){
 		if(i % 500 == 0){
 			double total[3] = {0.0,0.0,0.0};
 			for(int j = 0; j < LL; j++)
@@ -113,7 +114,7 @@ int punPGG::game(bool ptf){
 
 			for (int j = 0; j < 3; j++)
 				rate[j] = double (total[j]/double(LL));
-			if(ptf)
+			if(ptf && i == Xrnd - 1)
 				fprintf(file, "%06d %.3f %3f %3f\n",i,rate[0],rate[1],rate[2]);
 			printf("%d %.3f %3f %3f\n",i,rate[0],rate[1],rate[2]);
 
