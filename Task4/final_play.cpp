@@ -34,9 +34,12 @@ int wFinal::final_game(bool ptf){
 int main(){
 	srand(time(NULL));
 
-	for(double k = 0.50; k < 0.505; k+= 0.01){
-		wFinal punOBJ(0.333333,0.333333,3.0, k ,0,0.4);
-		punOBJ.final_game(true);		
+	for(double k = 0.48; k < 0.5305; k+= 0.005){
+		for(int j = 0; j < 10; j++){
+			printf("G_p:%f,itr:%d\n",k,j);
+			wFinal punOBJ(0.333333,0.333333,3.0, k ,0,0.4);
+			punOBJ.final_game(true);
+		}		
 	}
 
 	return 0;
